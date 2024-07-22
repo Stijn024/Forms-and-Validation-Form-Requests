@@ -18,3 +18,9 @@
 
 The repository is structured with separate commits for each exercise in the Eloquent - Being relatable module. This allows you to review each stage of the module independently, making it easier to provide targeted feedback.
 Please refer to the specific commits to see the progress and implementation details for each of the four exercises.
+
+### 3.Form Requests → 1.Form Requests
+
+- Copy project from last exercise
+- Created 3 requests: `StoreBookRequest & UpdateBookRequest & DeleteBookRequest` and moved validation-logic from controller.
+- `Bookscontroller`: Add the requests to the parameters of the controller methods.

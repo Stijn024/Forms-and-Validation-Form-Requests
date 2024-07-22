@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteBookRequest;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -29,33 +32,13 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $input = $request->validate([
-            'title' => [
-                'required',
-                'string',
-                Rule::unique('books')->where(function ($query) use ($request) {
-                    return $query->where('title', $request->input('title'))
-                                 ->where('author', $request->input('author'));
-                }),
-            ],
-            'author' => ['required', 'string'],
-        ], [
-            'title.unique' => 'This book is already in your library'
-        ]);
+        $input = $request->only(['title', 'author']);
 
         Book::create($input);
 
         return redirect()->route('books.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -69,13 +52,9 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $input = $request->validate([
-            'title' => ['required', 'string'],
-            'author' => ['required', 'string'],
-            'read_at' => ['nullable', 'date'],
-        ]);
+        $input = $request->only(['title', 'author', 'read_at']);
 
         $book->update($input);
 
@@ -85,7 +64,7 @@ class BooksController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(DeleteBookRequest $request, Book $book)
     {
         $book->delete();
 
