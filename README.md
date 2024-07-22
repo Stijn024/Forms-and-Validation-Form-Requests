@@ -24,3 +24,8 @@ Please refer to the specific commits to see the progress and implementation deta
 - Copy project from last exercise
 - Created 3 requests: `StoreBookRequest & UpdateBookRequest & DeleteBookRequest` and moved validation-logic from controller.
 - `Bookscontroller`: Add the requests to the parameters of the controller methods.
+
+### 3.Form Requests → 2.Authorization
+
+- Updated `TIMESTAMP_create_books_table`-migration add `user_id` with default value `1`.
+- In the Requests `authorize()` checks if the `Book->user_id` === `1`.

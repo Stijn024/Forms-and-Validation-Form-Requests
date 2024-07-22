@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
+            $table->unsignedBigInteger('user_id')->default(1);
             $table->date('read_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

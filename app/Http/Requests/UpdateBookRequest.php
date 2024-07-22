@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Book;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateBookRequest extends FormRequest
@@ -11,7 +12,13 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        /**
+         * This is a theoretical exercise. You can only run it if you actually have authenticated users. 
+         * return $book && $this->user()->id === $book->user_id;
+         */
+
+        $book = $this->route('book');
+        return $book && 1 === $book->user_id;
     }
 
     /**
